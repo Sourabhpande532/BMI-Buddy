@@ -51,7 +51,7 @@
     </footer>
     <script>
 
-        function calculateBmiForMale( bmi ) {
+        function getBmiCategoryForMale( bmi ) {
             if ( bmi <= 18 ) {
                 return "Underweight"
             } else if ( bmi <= 25 ) {
@@ -63,8 +63,8 @@
             }
         }
         // #TEASTING 
-        console.log( calculateBmiForMale( 19 ) )
-        function calculateBmiForFemale( bmi ) {
+        console.log( getBmiCategoryForMale( 19 ) )
+        function getBmiCategoryForFemale( bmi ) {
             if ( bmi <= 17 ) {
                 return "Underweight"
             } else if ( bmi <= 23 ) {
@@ -76,43 +76,43 @@
             }
         }
         // #TEASTING 
-        console.log( calculateBmiForFemale( 28 ) )
+        console.log( getBmiCategoryForFemale( 28 ) )
 
-        function calculateCatigory( calculateBmi, gender ) {
+        function getBmiCategoryByGender( calculateBmi, gender ) {
             if ( gender === "male" ) {
-                return calculateBmiForMale( calculateBmi )
+                return getBmiCategoryForMale( calculateBmi )
             } else {
-                return calculateBmiForFemale( calculateBmi )
+                return getBmiCategoryForFemale( calculateBmi )
             }
         }
-        function isValidInputFilled( value ) {
+        function isInvalidNumber( value ) {
             return value <= 0 || isNaN( value )
         }
-        function handleBmiClick() {
-            const weightElement = document.getElementById( "weightInput" );
-            const heightElement = document.getElementById( "heightInput" );
+        function hadleBmiCheck() {
+            const weightInput = document.getElementById( "weightInput" );
+            const heightInput = document.getElementById( "heightInput" );
             const genderInput = document.getElementById( "gender" )
             const resultOutput = document.getElementById( "bmiResult" )
-            const weight = parseFloat( weightElement.value.trim() )
-            const height = parseFloat( heightElement.value.trim() ) / 100 // cms to m i.e 100
+            const weight = parseFloat( weightInput.value.trim() )
+            const height = parseFloat( heightInput.value.trim() ) / 100 // cms to m i.e 100
             const gender = genderInput.value.trim();
 
-            if ( isValidInputFilled( weight ) ) {
+            if ( isInvalidNumber( weight ) ) {
                 return resultOutput.innerHTML = `<span style="color:red">Please enter a valid weight greater than 0</span>`
             }
-            if ( isValidInputFilled( height ) ) {
+            if ( isInvalidNumber( height ) ) {
                 return resultOutput.innerHTML = `<span style="color:orange">Please enter a valid height greater than 0</span>`
             }
 
             // Calculate BMI 
             const bmi = weight / ( height * height );
             const finalBmi = bmi.toFixed( 2 );
-            const determineCategory = calculateCatigory( bmi, gender );
+            const determineCategory = getBmiCategoryByGender( bmi, gender );
             resultOutput.innerHTML = `<span style="color: green">BMI: ${ finalBmi } - ${ determineCategory }</span>`
 
         }
         const buttonElement = document.getElementById( "calculateBtn" );
-        buttonElement.addEventListener( "click", handleBmiClick )
+        buttonElement.addEventListener( "click", hadleBmiCheck )
     </script>
 </body>
 
