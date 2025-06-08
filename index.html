@@ -34,18 +34,49 @@
                 <input type="number" id="heightInput" placeholder="Height in cms" required />
                 <select id="gender">
                     <option value="female">Female</option>
-                    <option value="female">Male</option>
+                    <option value="male">Male</option>
                 </select>
                 <button id="calculateBtn" type="button">Check My BMI</button>
             </div>
         </section>
+        <section>
+            <p id="bmiResult"></p>
+        </section>
     </main>
     <footer class="container bmi-footer">
         <small>
-            go from here and try to contact with me 
+            go from here and try to contact with me
             <a href="https://github.com/Sourabhpande532">Github</a>
         </small>
     </footer>
+    <script>
+
+        function isValidInputFilled( value ) {
+            return value === "" || value <= 0 || !Number.isInteger( Number( value ) ) || isNaN( value )
+        }
+
+        function handleBmiClick() {
+            const weightElement = document.getElementById( "weightInput" );
+            const heightElement = document.getElementById( "heightInput" );
+            const genderInput = document.getElementById( "gender" )
+            const resultOutput = document.getElementById( "bmiResult" )
+            const weight = parseFloat( weightElement.value.trim() )
+            const height = parseFloat( heightElement.value.trim() / 100 ) // cms to m i.e 100
+            const gender = genderInput.value.trim();
+            if ( isValidInputFilled( weight ) ) {
+                resultOutput.innerHTML = `<span style="color:red">Please Enter height filled</span>`
+            } else if ( isValidInputFilled( height ) ) {
+                resultOutput.innerHTML = `<span style="color:yellow">Please Enter height filled</span>`
+            }
+            // Calculate BMI 
+            const bmi = weight / ( height * height )
+            const finalBmi = bmi.toFixed(2);
+            resultOutput.innerHTML = `<span style="color: green">BMI: ${finalBmi}</span>`
+
+        }
+        const buttonElement = document.getElementById( "calculateBtn" );
+        buttonElement.addEventListener( "click", handleBmiClick )
+    </script>
 </body>
 
 </html>
