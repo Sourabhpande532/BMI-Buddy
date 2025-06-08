@@ -63,7 +63,7 @@
             }
         }
         // #TEASTING 
-        console.log(calculateBmiForMale(19))
+        console.log( calculateBmiForMale( 19 ) )
         function calculateBmiForFemale( bmi ) {
             if ( bmi <= 17 ) {
                 return "Underweight"
@@ -76,7 +76,7 @@
             }
         }
         // #TEASTING 
-        console.log(calculateBmiForFemale(28))
+        console.log( calculateBmiForFemale( 28 ) )
 
         function calculateCatigory( calculateBmi, gender ) {
             if ( gender === "male" ) {
@@ -86,22 +86,24 @@
             }
         }
         function isValidInputFilled( value ) {
-            return value === "" || value <= 0 || !Number.isInteger( Number( value ) ) || isNaN( value )
+            return value <= 0 || isNaN( value )
         }
-
         function handleBmiClick() {
             const weightElement = document.getElementById( "weightInput" );
             const heightElement = document.getElementById( "heightInput" );
             const genderInput = document.getElementById( "gender" )
             const resultOutput = document.getElementById( "bmiResult" )
             const weight = parseFloat( weightElement.value.trim() )
-            const height = parseFloat( heightElement.value.trim() / 100 ) // cms to m i.e 100
+            const height = parseFloat( heightElement.value.trim() ) / 100 // cms to m i.e 100
             const gender = genderInput.value.trim();
+
             if ( isValidInputFilled( weight ) ) {
-                resultOutput.innerHTML = `<span style="color:red">Please Enter height filled</span>`
-            } else if ( isValidInputFilled( height ) ) {
-                resultOutput.innerHTML = `<span style="color:yellow">Please Enter height filled</span>`
+                return resultOutput.innerHTML = `<span style="color:red">Please enter a valid weight greater than 0</span>`
             }
+            if ( isValidInputFilled( height ) ) {
+                return resultOutput.innerHTML = `<span style="color:orange">Please enter a valid height greater than 0</span>`
+            }
+
             // Calculate BMI 
             const bmi = weight / ( height * height );
             const finalBmi = bmi.toFixed( 2 );
