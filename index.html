@@ -40,7 +40,7 @@
             </div>
         </section>
         <section>
-            <p id="bmiResult"></p>
+            <p id="bmiResult" area-live="polite"></p>
         </section>
     </main>
     <footer class="container bmi-footer">
@@ -85,8 +85,8 @@
                 return getBmiCategoryForFemale( calculateBmi )
             }
         }
-        function isInvalidNumber( value ) {
-            return value <= 0 || isNaN( value )
+        function isInvalidNumber( value, min = 1, max = 250 ) {
+            return value <= 0 || isNaN( value ) || value < min || value > max
         }
         function hadleBmiCheck() {
             const weightInput = document.getElementById( "weightInput" );
@@ -98,18 +98,28 @@
             const gender = genderInput.value.trim();
 
             if ( isInvalidNumber( weight ) ) {
-                return resultOutput.innerHTML = `<span style="color:red">Please enter a valid weight greater than 0</span>`
+                return resultOutput.innerHTML = `<span style="color:red">Please enter a valid weight within threshhold as you, ensure weight between 1 to 250 </span>`
             }
-            if ( isInvalidNumber( height ) ) {
-                return resultOutput.innerHTML = `<span style="color:orange">Please enter a valid height greater than 0</span>`
+            if ( isInvalidNumber( height * 100, 20, 250 ) ) {
+                return resultOutput.innerHTML = `<span style="color:orange">Please enter height between 20cm to 250cm</span>`
             }
 
             // Calculate BMI 
             const bmi = weight / ( height * height );
             const finalBmi = bmi.toFixed( 2 );
-            const determineCategory = getBmiCategoryByGender( bmi, gender );
-            resultOutput.innerHTML = `<span style="color: green">BMI: ${ finalBmi } - ${ determineCategory }</span>`
 
+            const determineCategory = getBmiCategoryByGender( bmi, gender );
+            let color;
+            switch ( determineCategory ) {
+                case "Underweight": color = "blue"; break;
+                case "Normal": color = "green"; break;
+                case "Overweight": color = "orange"; break;
+                case "Obese": color = "red"; break;
+            }
+            resultOutput.innerHTML = `<span style="color:${ color }">BMI: ${ finalBmi } - ${ determineCategory }</span>`
+            weightInput.value = "";
+            heightInput.value = "";
+            gender.value = "male";
         }
         const buttonElement = document.getElementById( "calculateBtn" );
         buttonElement.addEventListener( "click", hadleBmiCheck )
