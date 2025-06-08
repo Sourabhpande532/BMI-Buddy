@@ -51,11 +51,25 @@
     </footer>
     <script>
 
+        function calculateBmiForMale(bmi){
+            if(bmi <= 18){
+                return "Underweight"
+            }else if(bmi <= 25){
+                return "Normal"
+            }else if(bmi <= 30){
+                return "Overweight"
+            }else{
+                return "Obess"
+            }
+        }
+        // #TEASTING 
+        // console.log(calculateBmiForMale(19))
+
         function calculateCatigory( calculateBmi, gender ) {
             if ( gender === "male" ) {
-                return calculateBmiForMale( gender )
+                return calculateBmiForMale( calculateBmi )
             } else {
-                return calculateBmiForFemale( gender )
+                return calculateBmiForFemale( calculateBmi )
             }
         }
 
