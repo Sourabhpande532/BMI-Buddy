@@ -51,6 +51,15 @@
     </footer>
     <script>
 
+        function calculateCatigory( calculateBmi, gender ) {
+            if ( gender === "male" ) {
+                return calculateBmiForMale( gender )
+            } else {
+                return calculateBmiForFemale( gender )
+            }
+        }
+
+
         function isValidInputFilled( value ) {
             return value === "" || value <= 0 || !Number.isInteger( Number( value ) ) || isNaN( value )
         }
@@ -69,9 +78,10 @@
                 resultOutput.innerHTML = `<span style="color:yellow">Please Enter height filled</span>`
             }
             // Calculate BMI 
-            const bmi = weight / ( height * height )
-            const finalBmi = bmi.toFixed(2);
-            resultOutput.innerHTML = `<span style="color: green">BMI: ${finalBmi}</span>`
+            const bmi = weight / ( height * height );
+            const finalBmi = bmi.toFixed( 2 );
+            const determineCategory = calculateCatigory( bmi, gender );
+            resultOutput.innerHTML = `<span style="color: green">BMI: ${ finalBmi } - ${ determineCategory }</span>`
 
         }
         const buttonElement = document.getElementById( "calculateBtn" );
