@@ -1,21 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI Buddy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="BMI calculator app" />
+<title>BMI Buddy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <hgroup>Navbar will come here...</hgroup>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="index.html">BMI Buddy</a></li>
+                <li><a href="index.html">Calorie Compass</a></li>
+                <li><a href="index.html">Water Watcher</a></li>
+                <li><a href="index.html">Step Sankhya</a></li>
+            </ul>
+        </nav>
+        <hgroup>
+            <h1>BMI Buddy</h1>
+            <p>Calculate your BMI</p>
+        </hgroup>
     </header>
-    <main>
+    <main class="container">
         <section>
-            <h1>App will come here</h1>
+            <p>Set your weight,heigth and gender to see your BMI</p>
+        </section>
+        <section>
+            <div>
+                <input type="number" id="weightInput" placeholder="Weight in kgs" required />
+                <input type="number" id="heightInput" placeholder="Height in cms" required />
+                <select id="gender">
+                    <option value="female">Female</option>
+                    <option value="female">Male</option>
+                </select>
+                <button id="calculateBtn" type="button">Check My BMI</button>
+            </div>
         </section>
     </main>
-    <footer>
-        <small></small>
+    <footer class="container bmi-footer">
+        <small>
+            go from here and try to contact with me 
+            <a href="https://github.com/Sourabhpande532">Github</a>
+        </small>
     </footer>
 </body>
+
 </html>
