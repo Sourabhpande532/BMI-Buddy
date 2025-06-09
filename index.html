@@ -41,6 +41,18 @@
         </section>
         <section>
             <p id="bmiResult" area-live="polite"></p>
+            <meter id="bmiMeter" min="10" max="40" low="18.5" high="25" optimum="22" value="0"></meter>
+        </section>
+        <section>
+            <details>
+                <summary>See BMI Categories</summary>
+                <ul>
+                    <li>Underweight: &lt; 18 (Male), &lt; 17 (Female)</li>
+                    <li>Normal: 18–25 (Male), 17–23 (Female)</li>
+                    <li>Overweight: 25–30 (Male), 23–29 (Female)</li>
+                    <li>Obese: 30+ (Both)</li>
+                </ul>
+            </details>
         </section>
     </main>
     <footer class="container bmi-footer">
@@ -93,8 +105,9 @@
             const heightInput = document.getElementById( "heightInput" );
             const genderInput = document.getElementById( "gender" )
             const resultOutput = document.getElementById( "bmiResult" )
+            const meter = document.getElementById( "bmiMeter" )
             const weight = parseFloat( weightInput.value.trim() )
-            const height = parseFloat( heightInput.value.trim() ) / 100 // cms to m i.e 100
+            const height = parseFloat( heightInput.value.trim() ) / 100
             const gender = genderInput.value.trim();
 
             if ( isInvalidNumber( weight ) ) {
@@ -116,11 +129,25 @@
                 case "Overweight": color = "orange"; break;
                 case "Obese": color = "red"; break;
             }
+            resultOutput.innerHTML = `<span style="color:${ color }">BMI: ${ finalBmi } - ${ determineCategory }</span>`;
+            meter.value = finalBmi;
+
             resultOutput.innerHTML = `<span style="color:${ color }">BMI: ${ finalBmi } - ${ determineCategory }</span>`
             weightInput.value = "";
             heightInput.value = "";
             gender.value = "male";
+
+            localStorage.setItem( "bmiResult", resultOutput.innerHTML )
         }
+
+        // Load saved result if available
+        window.addEventListener( "DOMContentLoaded", () => {
+            const stored = localStorage.getItem( "bmiResult" );
+            if ( stored ) {
+                document.getElementById( "bmiResult" ).innerHTML = stored;
+            }
+        } );
+
         const buttonElement = document.getElementById( "calculateBtn" );
         buttonElement.addEventListener( "click", hadleBmiCheck )
     </script>
